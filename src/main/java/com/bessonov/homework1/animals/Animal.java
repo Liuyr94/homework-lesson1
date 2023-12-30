@@ -1,42 +1,44 @@
 package com.bessonov.homework1.animals;
 
-import java.util.Objects;
-
 public abstract class Animal {
     public static int count = 0;
     String name;
-    String color;
-    int age;
+    String type;
+    int maxRunDistance;
+    int maxSwimDistance;
 
-    public Animal(String name, String color, int age) {
+    public Animal(String name, String type, int maxRunDistance, int maxSwimDistance) {
         this.name = name;
-        this.color = color;
-        this.age = age;
+        this.type = type;
+        this.maxRunDistance = maxRunDistance;
+        this.maxSwimDistance = maxSwimDistance;
         count++;
     }
 
-    public void animalsCreated() {
-        System.out.println(count + " Животных создано");
+    public void run(int runDistance) {
+        if (maxRunDistance < runDistance) {
+            System.out.println(type + " не смог пробежать " + runDistance);
+            return;
+        }
+        if (runDistance <= 0) {
+            System.out.println("Надо задать значение больше нуля");
+            return;
+        } else {
+            System.out.println(type + " пробежал " + runDistance);
+        }
     }
 
-    public void info() {
-        System.out.println("Имя животного - " + name + ".\nЦвет животного - " + color + ".\n.Лет животному - " + age + ".");
+    public void swim(int swimDistance) {
+        if (maxSwimDistance < swimDistance) {
+            System.out.println(type + " не смог проплыть " + swimDistance);
+            return;
+        }
+        if (swimDistance <= 0) {
+            System.out.println("Надо задать значение больше нуля");
+            return;
+        } else {
+            System.out.println(type + " проплыл " + swimDistance);
+        }
     }
 
-    public abstract void run(int runningRange);
-
-    public abstract void swim(int cruisingRange);
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || o.getClass() != this.getClass()) return false;
-        Animal animal = (Animal) o;
-        return name.equals(animal.name) && color.equals(animal.color) && age == animal.age;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, color, age);
-    }
 }
